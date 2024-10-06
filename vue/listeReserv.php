@@ -1,6 +1,20 @@
 <div class="container my-4">
     <h2 class="text-center">Liste des Réservations</h2>
-    
+
+    <?php if (isset($_GET['message'])): ?>
+        <div class="alert 
+            <?php 
+                if (strpos($_GET['message'], 'succès') !== false) {
+                    echo 'alert-success'; 
+                } else {
+                    echo 'alert-danger';
+                }
+            ?>
+            text-center mt-4">
+            <?= htmlspecialchars($_GET['message']) ?>
+        </div>
+    <?php endif; ?>
+
     <table class="table">
         <thead>
             <tr>
@@ -22,7 +36,6 @@
                         <td><?= htmlspecialchars($reservation['dateArrivee']) ?></td>
                         <td><?= htmlspecialchars($reservation['dateDepart']) ?></td>
                         <td>
-                            <a href="modifierReserv.php?id=<?= $reservation['numReservation'] ?>" class="btn btn-warning">Modifier</a>
                             <a href="supprimerReserv.php?id=<?= $reservation['numReservation'] ?>" class="btn btn-danger">Supprimer</a>
                         </td>
                     </tr>
