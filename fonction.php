@@ -28,18 +28,24 @@ function getOne($table, $column, $id){
     return $stmt->fetch();
 }
 
-if(isset($_POST["login"])){
-    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE login = ? AND pass = ?");
-    $stmt->execute([$_POST['login'], $_POST['mdp']]);
+if (isset($_POST["login"])) {
+    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE login = ? AND pass = ? AND role = ?");
+    $stmt->execute([$_POST['login'], $_POST['mdp'], $_POST['role']]);
 
-    $_SESSION['user'] = $stmt->fetch();
+    $user = $stmt->fetch();
 
-    header("location: .");
-    exit;
-}else if( isset($_GET['action']) && $_GET['action'] == "logout" ){
+    if ($user) {
+        $_SESSION['user'] = $user;
+        header("Location: .");
+        exit;
+    } else {
+        $_SESSION['error'] = "Login, mot de passe ou rôle incorrect. Veuillez réessayer.";
+        header("Location: vue/connexion.php");
+        exit;
+    }
+} else if (isset($_GET['action']) && $_GET['action'] == "logout") {
     session_destroy();
-    
-    header("location: .");
+    header("Location: .");
     exit;
 }
 

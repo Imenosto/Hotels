@@ -21,19 +21,19 @@
     </div>
 
     <div class="container">
-    <?php if (isset($_GET['message'])): ?>
-    <div class="alert 
-        <?php 
-            if (strpos($_GET['message'], 'succès') !== false) {
-                echo 'alert-success'; 
-            } else {
-                echo 'alert-danger';
-            }
-        ?>
-        text-center mt-4">
-        <?= htmlspecialchars($_GET['message']) ?>
-    </div>
-<?php endif; ?>
+        <?php if (isset($_GET['message'])): ?>
+        <div class="alert 
+            <?php 
+                if (strpos($_GET['message'], 'succès') !== false) {
+                    echo 'alert-success'; 
+                } else {
+                    echo 'alert-danger';
+                }
+            ?>
+            text-center mt-4">
+            <?= htmlspecialchars($_GET['message']) ?>
+        </div>
+        <?php endif; ?>
 
 
         <form action="reservation.php" method="post" class="shadow p-4 rounded bg-light">
